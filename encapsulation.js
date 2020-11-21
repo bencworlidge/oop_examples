@@ -12,7 +12,9 @@ const employee = {
 console.log(employee.getName());
 employee.setName("Not Ben Worlidge");
 console.log(employee.getName());
-// Can change name property outside of function
+// Can change name property outside of object
+
+////////////////////
 
 const sayHello = () => {
   const greeting = "Hello World";
@@ -20,16 +22,38 @@ const sayHello = () => {
 console.log(greeting);
 // Can't access variable declared in function due to function scope
 
+////////////////////
+
 const car = () => {
   var name = "Corsa";
-  var exp = new RegExp(/\d+/);
   var myObj = {
     setName: function (value) {
-      name = value; // The object has access to "name"
+      name = value;
     },
     getName: function () {
-      return name; // The object has access to "name"
+      return name;
     },
-  }; // End of the Object
+  };
 };
-car.getName(); // doesn't work!
+car.getName(); // can't use function because myObj is private to the function
+
+////////////////////
+
+const character = (function () {
+  let name = "Jon Snow";
+  return {
+    setName: function (value) {
+      name = value;
+    },
+    getName: function () {
+      return name;
+    },
+  };
+})();
+console.log(character.getName()); // Jon Snow
+character.setName("You Know Nothing");
+console.log(character.getName()); // You Know Nothing
+// This works as the inner object has been returned
+
+// Simplifies App
+// Guards against illegal access
